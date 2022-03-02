@@ -1,0 +1,7 @@
+.vs/
+api/obj/
+api/bin/
+api/DockerSqlServer/
+api/bin/
+api/obj/
+api/Migrations/
