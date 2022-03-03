@@ -1,5 +1,14 @@
-using api.AppDbContext;
+using api.DataContext;
+using api.Helpers;
+using api.Interfaces;
+using api.Mapper;
+using api.Repositories;
+using api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 

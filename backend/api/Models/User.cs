@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models
 {
-    public class User
-    {
-        [Key]
-        public int Id { get; set; }
+    public class User : EntityBase
+    {        
 
         [Required(ErrorMessage = "Nombre es requerido")]
         [StringLength(maximumLength: 100, ErrorMessage = "Nombre es demasiado largo")]

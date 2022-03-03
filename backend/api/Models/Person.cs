@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models
 {
-    public class Person
+    public class Person : EntityBase
     {
-        [Key]
+        [Required(ErrorMessage = "Dni es requerido")]
         [RegularExpression(@"^\d{7,9}$", ErrorMessage = "DNI incorrecto")]
         public string Dni { get; set; }
 
