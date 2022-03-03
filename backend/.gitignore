@@ -5,3 +5,5 @@ api/DockerSqlServer/
 api/bin/
 api/obj/
 api/Migrations/
+obj/
+bin/
