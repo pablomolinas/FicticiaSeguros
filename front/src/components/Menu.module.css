@@ -1,0 +1,90 @@
+.divPadre {
+    display: grid;
+    gap: 20px;
+}
+.divMenu {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 10px;
+    padding: 10px;
+}
+.divDivCaract {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.divCaractericasUnicas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+    background-color: rgba(255, 154, 154, 0.704);
+    height: 100px;
+    border-radius: 10px ;
+}
+.titleCarac {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+    text-decoration:underline;
+    color: white;
+}
+.parrafoCarac {
+    font-size: 12px;
+}
+.span {   
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+}
+/* Menu de los platos */
+.divMenuPersonalizado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 10px 0px;
+}
+.h1 {
+    text-align: center;
+    background-color: rgba(255, 154, 154, 0.704);
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+}
+
+@media all and (min-width:600px) {
+    .divMenu {
+        justify-content: center;
+        align-items: center;
+        width: 500px;
+        margin: 0px auto;
+    }
+    .divMenuPersonalizado {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
+    .divCaractericasUnicas {
+        width: 100%;
+    }
+    .parrafoCarac {
+        font-size: 14px;
+    }
+}
+
+@media all and (min-width:1200px) {
+    .divMenuPersonalizado {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
+    .divDivCaract {
+        width: 900px;
+        flex-direction: row;
+        gap: 30px;
+    }
+}

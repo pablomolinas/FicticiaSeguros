@@ -1,0 +1,13 @@
+.error {
+    color: rgb(172, 5, 5);
+    font-size: 12px;
+    text-align: left;
+}
+.errorMail {
+    position: absolute;
+    top: 60px;
+}
+.errorPassword {
+    position: absolute;
+    top: 145px;
+}
