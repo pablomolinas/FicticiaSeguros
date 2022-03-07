@@ -4,7 +4,7 @@ import {Formik, Form, Field, ErrorMessage} from "formik";
 import PersonFormModule from "./PersonForm.module.css";
 import { CustomSelect } from './CustomSelect';
 import {validationPersonForm} from '../helpers/validationPersonForm';
-import { diseasesToSelectItems } from "../helpers/diseasesMapper";
+import { diseasesToSelectItems, SelectItemsToDiseases } from "../helpers/diseasesMapper";
 import ModalWindow from './ModalWindow';
 
 const personDefault = {
@@ -38,7 +38,9 @@ export default function PersonForm({actionNew, currentPerson, isOpen, closeModal
                   //alert(JSON.stringify(values, null, 2));
                   actions.setSubmitting(false);
                 }, 1000);
-                               
+                
+                const mappedDiseases = SelectItemsToDiseases(values.diseases, diseases);
+                values.diseases = mappedDiseases;         
                 (async () => {
                     var result = false;
                     if(actionNew)
@@ -179,7 +181,7 @@ export default function PersonForm({actionNew, currentPerson, isOpen, closeModal
                         </div>
                         
                     </div>
-                    <button type="submit" className="btn btn-primary">Editar</button>
+                    <button type="submit" className="btn btn-primary">Guardar</button>
                     <button type="button" className="btn btn-secondary" onClick={() => closeModal()}>Cancelar</button>
                     
                 </Form>
