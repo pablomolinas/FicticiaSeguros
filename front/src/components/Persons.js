@@ -6,6 +6,7 @@ import {Container, Row, Col, Table} from 'react-bootstrap';
 import sweetAlert from "sweetalert";
 import {getPersons, deletePerson} from '../api/api';
 import PersonForm from "./PersonForm";
+import { diseasesToSelectItems } from "../helpers/diseasesMapper";
 
 export default function Persons() {
     let {user} = useContext(UserContext);    
@@ -37,7 +38,9 @@ export default function Persons() {
     }
 
     const editPerson = (person) => {
-        setcurrentPerson(person);
+        var p = Object.assign({}, person);
+        p.diseases = diseasesToSelectItems(person.diseases);
+        setcurrentPerson(p);
         setActionNew(false);
         openModal();        
     }

@@ -7,35 +7,29 @@ export const CustomSelect = ({
   field,
   form,
   options,
-  isMulti = false,
-  defaultValue
+  isMulti = false
 }) => {
-  const onChange = (option) => {
-    form.setFieldValue(
-      field.name,
-      isMulti
-        ? (option).map((item) => item.value)
-        : (option).value
-    );
-  };
 
-  const getValue = () => {    
-    if (options) {
-      return isMulti
+  const getValue = () => {
+       
+    if (options && field) {
+        var r = isMulti
         ? options.filter(option => field.value.indexOf(option.value) >= 0)
-        : options.find(option => option.value === field.value);
+        : options.find(option => option.value === field.value);                
+        console.log(r);
+        return r;
     } else {
       return isMulti ? [] : ("");
     }
   };
 
   return (
-    <Select
-      defaultValue={defaultValue}  
+    <Select 
       className={className}
       name={field.name}
-      value={getValue()}
-      onChange={onChange}
+      value={field.value}
+      onChange={(option) => {form.setFieldValue(field.name, option)}}
+      onBlur={field.onBlur}
       placeholder={placeholder}
       options={options}
       isMulti={isMulti}      

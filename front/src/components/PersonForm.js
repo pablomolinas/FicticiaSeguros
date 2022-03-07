@@ -22,11 +22,16 @@ const personDefault = {
 }
 
 export default function PersonForm({actionNew, currentPerson, isOpen, closeModal, updatePersons}) {
-    const [diseases, setDiseases] = useState([]);
+    const [diseases, setDiseases] = useState([]);    
     
     useEffect(async () => {               
         setDiseases(diseasesToSelectItems( await getDiseases() ));
     }, []);
+
+    /*useEffect(() => {
+        var p = Object.assign({}, currentPerson);
+        p.diseases = diseasesToSelectItems( currentPerson.diseases );        
+    }, [currentPerson]);*/
       
     return (<>
         <ModalWindow title={actionNew ? "Nueva persona" : "Editar Persona"} isOpen={isOpen} closeModal={closeModal}>
@@ -34,12 +39,11 @@ export default function PersonForm({actionNew, currentPerson, isOpen, closeModal
             enableReinitialize
             initialValues = {actionNew ? personDefault : currentPerson}
             onSubmit={(values, actions) => {
-                setTimeout(() => {
-                  //alert(JSON.stringify(values, null, 2));
+                setTimeout(() => {                  
                   actions.setSubmitting(false);
                 }, 1000);
                 
-                const mappedDiseases = SelectItemsToDiseases(values.diseases, diseases);
+                const mappedDiseases = SelectItemsToDiseases(values.diseases);
                 values.diseases = mappedDiseases;         
                 (async () => {
                     var result = false;
@@ -127,8 +131,7 @@ export default function PersonForm({actionNew, currentPerson, isOpen, closeModal
                     </div>
                     <div className="col mb-2">
                             <label className="form-label">Enfermedad/es preexistente/s</label>
-                            <Field
-                                defaultValue={diseasesToSelectItems(currentPerson.diseases)}
+                            <Field                              
                                 name="diseases" 
                                 as="select" 
                                 isMulti={true}
@@ -143,9 +146,10 @@ export default function PersonForm({actionNew, currentPerson, isOpen, closeModal
                                     className="form-check-input" 
                                     type="checkbox" 
                                     name="drive"
+                                    id="drive"
                                 />
                                 <label className="form-check-label" htmlFor="drive">
-                                    Conduce vehiculos?
+                                    Conduce vehiculos
                                 </label>
                             </div>
                             <div className="form-check">
@@ -153,9 +157,10 @@ export default function PersonForm({actionNew, currentPerson, isOpen, closeModal
                                     className="form-check-input"
                                     type="checkbox"
                                     name="glasses"
+                                    id="glasses"
                                 />
                                 <label className="form-check-label" htmlFor="glasses">
-                                    Utiliza lentes?
+                                    Utiliza lentes
                                 </label>
                             </div>
                             <div className="form-check">
@@ -163,16 +168,18 @@ export default function PersonForm({actionNew, currentPerson, isOpen, closeModal
                                     className="form-check-input" 
                                     type="checkbox" 
                                     name="diabetic"
+                                    id="diabetic"
                                 />
                                 <label className="form-check-label" htmlFor="diabetic">
-                                    es Diabetico?
+                                    Diabetes
                                 </label>
                             </div>
                             <div className="form-check">
                                 <Field 
                                     className="form-check-input" 
                                     type="checkbox" 
-                                    name="enable" 
+                                    name="enable"
+                                    id="enable"
                                 />
                                 <label className="form-check-label" htmlFor="enable">
                                     Habilitado
