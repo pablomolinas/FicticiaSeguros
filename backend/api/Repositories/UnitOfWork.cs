@@ -10,14 +10,16 @@ namespace api.Repositories
         private readonly IGenericRepository<Person> _personsRepository;
         private readonly IGenericRepository<User> _usersRepository;
         private readonly IGenericRepository<Disease> _diseasesRepository;
+        private readonly IGenericRepository<DiseasePerson> _diseasePersonRepository;
         public UnitOfWork(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public IGenericRepository<Person> PersonsRepository => _personsRepository ?? new GenericRepository<Person>(_dbContext);
-        public IGenericRepository<User> UsersRepository => _usersRepository ?? new GenericRepository<User>(_dbContext);
-        public IGenericRepository<Disease> DiseasesRepository => _diseasesRepository ?? new GenericRepository<Disease>(_dbContext);
+        public IGenericRepository<Person> PersonsRepository => _personsRepository ?? new GenericRepository<Person, AppDbContext>(_dbContext);
+        public IGenericRepository<User> UsersRepository => _usersRepository ?? new GenericRepository<User, AppDbContext>(_dbContext);
+        public IGenericRepository<Disease> DiseasesRepository => _diseasesRepository ?? new GenericRepository<Disease, AppDbContext>(_dbContext);
+        public IGenericRepository<DiseasePerson> DiseasesPersonsRepository => _diseasePersonRepository ?? new GenericRepository<DiseasePerson, AppDbContext>(_dbContext);
 
         #region Methods       
 

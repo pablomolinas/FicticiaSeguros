@@ -8,5 +8,7 @@ namespace api.Interfaces
         Task<ICollection<T>> FindByConditionAsync(Expression<Func<T, bool>> expression);        
         Task<T> GetByIdAsync(int id);
         Task CreateAsync(T entity);
+        Task CreateRangeAsync(ICollection<T> entities);
+        void RemoveRange(ICollection<T> entities);
     }
 }

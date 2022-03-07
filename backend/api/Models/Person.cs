@@ -4,8 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models
 {
-    public class Person : EntityBase
+    public class Person
     {
+        [Key]
+        public int Id { get; set; }
+        public bool SoftDelete { get; set; }
+
         [Required(ErrorMessage = "Dni es requerido")]
         [RegularExpression(@"^\d{7,9}$", ErrorMessage = "DNI incorrecto")]
         public string Dni { get; set; }
@@ -31,6 +35,6 @@ namespace api.Models
         public bool Glasses { get; set; }
         public bool Diabetic { get; set; }
 
-        public virtual ICollection<Disease> Diseases { get; set; }
+        public virtual ICollection<DiseasePerson> DiseasesPersons { get; set; }
     }
 }

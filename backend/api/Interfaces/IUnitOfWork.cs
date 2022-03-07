@@ -7,6 +7,7 @@ namespace api.Interfaces
         IGenericRepository<Person> PersonsRepository { get; }
         IGenericRepository<User> UsersRepository { get; }
         IGenericRepository<Disease> DiseasesRepository { get; }
+        IGenericRepository<DiseasePerson> DiseasesPersonsRepository { get; }
 
         void Dispose();
         void SaveChanges();

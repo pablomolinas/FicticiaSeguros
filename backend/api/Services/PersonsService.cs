@@ -9,10 +9,12 @@ namespace api.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEntityMapper _entityMapper;
-        public PersonsService(IUnitOfWork unitOfWork, IEntityMapper entityMapper)
+        private readonly IDiseasesPersonsService _diseasesPersonsService;
+        public PersonsService(IUnitOfWork unitOfWork, IEntityMapper entityMapper, IDiseasesPersonsService diseasesPersonsService)
         {
             _unitOfWork = unitOfWork;
             _entityMapper = entityMapper;
+            _diseasesPersonsService = diseasesPersonsService;
         }
 
         public async Task<Result> GetAll()
@@ -61,11 +63,22 @@ namespace api.Services
         {
             try
             {
-                var person = _entityMapper.PersonDtoForRegisterToPerson(dto);
-                                
-                await _unitOfWork.PersonsRepository.CreateAsync(person);
+                var r = await _unitOfWork.PersonsRepository.FindByConditionAsync(x => x.Dni == dto.Dni);
+                if (r.Count > 0)
+                {
+                    return Result.FailureResult("El usuario ya existe en el sistema");
+                }
+
+                var person = _entityMapper.PersonDtoForRegisterToPerson(dto);                
                 
-                return Result<PersonDtoForDisplay>.SuccessResult(_entityMapper.PersonToPersonDtoForDisplay(person));                
+                await _unitOfWork.PersonsRepository.CreateAsync(person);
+                await _unitOfWork.SaveChangesAsync();
+
+                // create diseases
+                await _diseasesPersonsService.InsertRange(person.Id, dto.Diseases);
+
+
+                return Result<int>.SuccessResult(person.Id);
             }
             catch (Exception ex)
             {
@@ -89,26 +102,13 @@ namespace api.Services
                     person.Diabetic = dto.Diabetic;
                     person.Enable = dto.Enable;
                     person.Glasses = dto.Glasses;
-                    
-                    if (person.Diseases != null)
-                    {
-                        foreach(var d in person.Diseases)
-                        {
-                            person.Diseases.Remove(d);
-                        }                        
-                    }                    
-
-                    if(dto.Diseases.Count > 0)
-                    {
-                        person.Diseases = new List<Disease>();
-                        foreach (var d in dto.Diseases)
-                        {
-                            person.Diseases.Add(_entityMapper.DiseaseForDisplayToDisease(d));
-                        }
-                    }
+                                      
                     await _unitOfWork.SaveChangesAsync();
+                                        
+                    await _diseasesPersonsService.DeleteRange(person.Id);
+                    await _diseasesPersonsService.InsertRange(person.Id, dto.Diseases);
 
-                    return Result<PersonDtoForDisplay>.SuccessResult(_entityMapper.PersonToPersonDtoForDisplay(person));
+                    return Result<int>.SuccessResult(person.Id);
                 }
                 
                 return Result.FailureResult("Persona inexistente", 404);

@@ -21,15 +21,15 @@ namespace api.Mapper
                 Diabetic = dto.Diabetic                
             };
 
-            var diseases = new List<Disease>();
+           /* var dp = new List<DiseasePerson>();
             if (dto.Diseases != null)
             {
                 foreach (var d in dto.Diseases)
                 {
-                    diseases.Add(this.DiseaseForDisplayToDisease(d));
+                    dp.Add(new DiseasePerson() { Disease = this.DiseaseForDisplayToDisease(d) });
                 }
             }
-            person.Diseases = diseases;
+            person.DiseasesPersons = dp;*/
 
             return person;
         }
@@ -51,11 +51,11 @@ namespace api.Mapper
             };
 
             var diseasesDto = new List<DiseaseForDisplay>();
-            if (person.Diseases != null)
+            if (person.DiseasesPersons != null)
             {
-                foreach (var d in person.Diseases)
+                foreach (var d in person.DiseasesPersons)
                 {
-                    diseasesDto.Add(this.DiseaseToDiseaseForDisplay(d));
+                    diseasesDto.Add(this.DiseaseToDiseaseForDisplay(d.Disease));
                 }
             }
 
@@ -98,15 +98,15 @@ namespace api.Mapper
                 Diabetic = dto.Diabetic
             };
 
-            var diseases = new List<Disease>();
+            var dp = new List<DiseasePerson>();
             if (dto.Diseases != null)
             {
                 foreach (var d in dto.Diseases)
                 {
-                    diseases.Add(this.DiseaseForDisplayToDisease(d));
+                    dp.Add(new DiseasePerson() { Disease = this.DiseaseForDisplayToDisease(d) });
                 }
             }
-            person.Diseases = diseases;
+            person.DiseasesPersons = dp;
 
             return person;
         }

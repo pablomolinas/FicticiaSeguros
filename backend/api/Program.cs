@@ -67,6 +67,7 @@ builder.Services.AddScoped<IJwtHelper, JwtHelper>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IPersonsService, PersonsService>();
 builder.Services.AddScoped<IDiseasesService, DiseasesService>();
+builder.Services.AddScoped<IDiseasesPersonsService, DiseasesPersonsService>();
 
 
 // JWT Token Generator

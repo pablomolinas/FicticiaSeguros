@@ -3,8 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models
 {
-    public class User : EntityBase
-    {        
+    public class User
+    {
+        [Key]
+        public int Id { get; set; }
+        public bool SoftDelete { get; set; }
 
         [Required(ErrorMessage = "Nombre es requerido")]
         [StringLength(maximumLength: 100, ErrorMessage = "Nombre es demasiado largo")]
