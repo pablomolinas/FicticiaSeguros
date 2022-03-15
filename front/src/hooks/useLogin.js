@@ -13,9 +13,8 @@ const initialValue = {
 export const useLogin = (validationLoginForm) => {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState(initialValue);
-    const [errors, setError] = useState({});
-    //const navigate = useNavigate();
-    let {setUser} = useContext(UserContext);
+    const [errors, setError] = useState({});    
+    let {setLogin} = useContext(UserContext);
     let url = combineUrl(API_URL, "auth/login");
     let body = {
         email: form.email,
@@ -34,10 +33,9 @@ export const useLogin = (validationLoginForm) => {
                 data: body
             })
             .then((res) => {
-                const token = res.data.data;                
-                localStorage.setItem('token', token);
-                setLoading(false);
-                setUser(true);
+                const token = res.data.data;                                
+                setLogin(form.email, token);
+                setLoading(false);                
                 return <Navigate to="/" />
             })
             .catch((err) => {                

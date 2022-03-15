@@ -27,11 +27,6 @@ export default function PersonForm({actionNew, currentPerson, isOpen, closeModal
     useEffect(async () => {               
         setDiseases(diseasesToSelectItems( await getDiseases() ));
     }, []);
-
-    /*useEffect(() => {
-        var p = Object.assign({}, currentPerson);
-        p.diseases = diseasesToSelectItems( currentPerson.diseases );        
-    }, [currentPerson]);*/
       
     return (<>
         <ModalWindow title={actionNew ? "Nueva persona" : "Editar Persona"} isOpen={isOpen} closeModal={closeModal}>

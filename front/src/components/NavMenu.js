@@ -1,17 +1,13 @@
 import React from "react";
 import { useContext }  from "react";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import UserContext from "../context/UserContext";
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 
 export default function NavMenu() {
-    let {user} = useContext(UserContext);    
-    const navigate = useNavigate();
+    let {user, email, setLogout} = useContext(UserContext);    
     if(!user) return <Navigate to="/login" />
 
-    const handleLogout = () => {
-        navigate("/logout");        
-    }    
     
     return(        
         <Navbar bg="dark" variant={"dark"} expand="lg" fixed="top">
@@ -20,8 +16,8 @@ export default function NavMenu() {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">                
                 <Nav className="ms-auto">                    
-                    <NavDropdown title="UserEmail" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="#" onClick={handleLogout} >Logout</NavDropdown.Item>                        
+                    <NavDropdown title={email} id="collasible-nav-dropdown">
+                        <NavDropdown.Item href="#" onClick={() => setLogout()} >Logout</NavDropdown.Item>                        
                     </NavDropdown>
                 </Nav>
             </Navbar.Collapse>
